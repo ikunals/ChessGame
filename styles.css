@@ -1,0 +1,73 @@
+
+html {
+    box-sizing: border-box;
+  }
+
+body {
+    align-items: center;
+    background-image: linear-gradient(180deg, #7486eb, #cde5ac);
+    display: flex;
+    justify-content: center;
+}
+
+
+.chessboard{
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.chessboard > * {
+    width: 50px;
+    opacity: 100%;
+    height: 50px;
+}
+
+div.b_bishop {
+    content:url("./pieces/b_bishop.svg");
+}
+
+div.b_king {
+    content:url("./pieces/b_king.svg");
+}
+
+div.b_knight {
+    content:url("./pieces/b_knight.svg");
+}
+
+div.b_pawn {
+    content:url("./pieces/b_pawn.svg");
+}
+
+div.b_queen {
+    content:url("./pieces/b_queen.svg");
+}
+
+div.b_rook {
+    content:url("./pieces/b_rook.svg");
+}
+
+div.w_bishop {
+    content:url("./pieces/w_bishop.svg");
+}
+
+div.w_king {
+    content:url("./pieces/w_king.svg");
+}
+
+div.w_knight {
+    content:url("./pieces/w_knight.svg");
+}
+
+div.w_pawn {
+    content:url("./pieces/w_pawn.svg");
+}
+
+div.w_queen {
+    content:url("./pieces/w_queen.svg");
+}
+
+div.w_rook {
+    content:url("./pieces/w_rook.svg");
+}
