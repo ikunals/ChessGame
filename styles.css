@@ -10,11 +10,12 @@ body {
     justify-content: center;
 }
 
-h1 {
+#whotoplay {
     position: absolute;
-    align-items: start;
     margin-top:5%;
-    background-color: linear-gradient(180deg, #74eb88, #dd2626);
+    background-image: linear-gradient(180deg, #eb748e, #dfbb6f);
+    border-style: solid;
+    border-width: 7px;
 }
 
 .container {
@@ -34,6 +35,24 @@ h1 {
     width: 50px;
     opacity: 100%;
     height: 50px;
+}
+
+#whitetimer {
+    font-size: 50px;
+    margin-right: 20px;
+    margin-top: 150px;
+    border-style: solid;
+    border-width: 4px;
+    background-color: #babcb4;
+}
+
+#blacktimer {
+    font-size: 50px;
+    margin-right: 20px;
+    margin-top: 285px;
+    border-style: solid;
+    border-width: 4px;
+    background-color: #babcb4;
 }
 
 div.b_bishop {

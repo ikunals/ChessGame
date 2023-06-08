@@ -3,7 +3,7 @@ let boardPosition = [];
 
 let playerTurn = 0;
 let gameEnded = false;
-let playerColor = "white";
+let playerColor = "black";
 let whoToPlay = "w";
 if (whoToPlay == "w") {
     document.getElementById("whotoplay").innerHTML = "White to Play";
@@ -109,12 +109,26 @@ function setPieces() {
     document.body.appendChild(styleSheet);
 }
 
-function checkmateSequence() { 
+function createTimers() {
+    if (playerColor == "white") {
+        document.getElementById("toptimer").id = "blacktimer";
+        document.getElementById("bottomtimer").id = "whitetimer";
+        document.getElementById("whitetimer").style.marginTop = "285px";
+        document.getElementById("blacktimer").style.marginTop = "150px";
+    }
+    else {
+        document.getElementById("toptimer").id = "whitetimer";
+        document.getElementById("bottomtimer").id = "blacktimer";
+    }
+}
 
+function checkmateSequence() { 
+    
 }
 
 createSquares();
 setPieces();
+createTimers();
 
 let selectOn = true;
 window.onload = function() {
