@@ -1,7 +1,16 @@
 
 let boardPosition = [];
 
+let playerTurn = 0;
+let gameEnded = false;
 let playerColor = "white";
+let whoToPlay = "w";
+if (whoToPlay == "w") {
+    document.getElementById("whotoplay").innerHTML = "White to Play";
+}
+else {
+    document.getElementById("whotoplay").innerHTML = "Black to Play";
+}
 
 function createSquares() {
     letters = "abcdefgh"
@@ -100,48 +109,90 @@ function setPieces() {
     document.body.appendChild(styleSheet);
 }
 
+function checkmateSequence() { 
+
+}
+
 createSquares();
 setPieces();
 
 let selectOn = true;
-let originalColor = "";
 window.onload = function() {
     let squares = document.getElementsByClassName("square");
     let oldSq = "";
+    let coloredSquares = [];
     Array.from(squares).forEach((element) => {
         element.onmousedown = function(event) {
-            if (selectOn) {
-                if (!element.classList.contains("empty")) {
-                    let target = event.target;
+            if (selectOn && !gameEnded) {
+                let target = event.target;
+                let chosenCol = target.classList[2][0];
+                if (!element.classList.contains("empty") && (chosenCol == whoToPlay)) {
                     oldSq = target.id;
-                    originalColor = target.style.backgroundColor;
                     target.style.backgroundColor = 'yellow';
                     selectOn = false;
 
                     let possibleMoves = parseMoves(target.classList[2], target.id);
+                    console.log(possibleMoves);
                     possibleMoves.forEach((move) => {
                         let moveSq = document.getElementById(move);
+                        moveSq.style.backgroundColor = "purple";
+                        coloredSquares.push(move);
                     });
                 }
             }
-            else {
-                console.log(oldSq);
+            else if (!gameEnded) {
+                
+                let target = event.target;
+
+                coloredSquares.forEach((eachSq) => {
+                    let sqTarget = document.getElementById(eachSq);
+                    sqTarget.style.backgroundColor = sqTarget.classList[1];
+                });
+
                 let oldTarget = document.getElementById(oldSq);
                 let oldPiece = oldTarget.classList[2];
+                let originalColor = oldTarget.classList[1];
+                let capturedPiece = target.classList[2];
 
-                oldTarget.className = "";
-                oldTarget.classList.add("square");
-                oldTarget.classList.add(originalColor);
-                oldTarget.classList.add("empty");
                 oldTarget.style.backgroundColor = originalColor;
 
-                let target = event.target;
-                saveColor = target.style.backgroundColor;
-                target.className = "";
-                target.classList.add("square");
-                target.classList.add(saveColor);
-                target.classList.add(oldPiece);
+                if (coloredSquares.includes(target.id)) {
+                    oldTarget.className = "";
+                    oldTarget.classList.add("square");
+                    oldTarget.classList.add(originalColor);
+                    oldTarget.classList.add("empty");
 
+                    saveColor = target.style.backgroundColor;
+                    target.className = "";
+                    target.classList.add("square");
+                    target.classList.add(saveColor);
+                    target.classList.add(oldPiece);
+                    
+                    let oldCoords = coordToIndices.get(oldSq);
+                    let newCoords = coordToIndices.get(target.id);
+                    boardPosition[oldCoords[0]][oldCoords[1]] = "empty";
+                    boardPosition[newCoords[0]][newCoords[1]] = oldPiece;
+
+                    (whoToPlay == "w") ? whoToPlay = "b" : whoToPlay = "w";
+                    if (whoToPlay == "w") {
+                        document.getElementById("whotoplay").innerHTML = "White to Play";
+                    }
+                    else {
+                        document.getElementById("whotoplay").innerHTML = "Black to Play";
+                    }
+
+                    if (capturedPiece == "w_king") {
+                        document.getElementById("whotoplay").innerHTML = "CHECKMATE - BLACK HAS WON";
+                        gameEnded = true;
+                        checkmateSequence();
+                    }
+                    else if (capturedPiece == "b_king") {
+                        document.getElementById("whotoplay").innerHTML = "CHECKMATE - WHITE HAS WON";
+                        gameEnded = true;
+                        checkmateSequence();
+                    }
+                    playerTurn += 1;
+                }
                 selectOn = true;
             }
             //console.log(parseMoves(target.classList[2], target.id));

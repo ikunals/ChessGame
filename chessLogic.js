@@ -11,98 +11,386 @@ function setMaps() {
     }
     for (let i = 0; i < letters.length; i++) {
         for (let j = 0; j < 8; j++) {
-            indicesToCoords.set([i, j], letters[i] + (j+1))
+            indicesToCoords.set(i.toString() + j.toString(), letters[i] + (j+1))
         } 
     }
 
 } setMaps();
 
-function letterToPiece(letter) {
-    if (letter == "b") 
-        return "b_bishop";
-    else if (letter == "k")
-        return "b_king";
-    else if (letter == "n")
-        return "b_knight";
-    else if (letter == "p")
-        return "b_pawn";
-    else if (letter == "q")
-        return "b_queen";
-    else if (letter == "r")
-        return "b_rook";
-    else if (letter == "B")
-        return "w_bishop";
-    else if (letter == "K")
-        return "w_king";
-    else if (letter == "N")
-        return "w_knight";
-    else if (letter == "P")
-        return "w_pawn";
-    else if (letter == "Q")
-        return "w_queen";
-    else if (letter == "R")
-        return "w_rook";
-    else
-        return "";
-}
-
-
-function fenBoardInterrupt(fen) {
-    
-    let eachRow = fen.split("/");
-    for (let i = 0; i < 8; i++) {
-        for (let j = 0; j < 8; j++) {
-            if (letterToPiece(eachRow[i][j]) != "") {
-                boardPosition[j][i] = letterToPiece(eachRow[i][j]);
-            }
-            else {
-                for (let k = 0; k < Number(eachRow[i][j]); k++) {
-                    boardPosition[j+k][i] = "empty";
-                }
-                j += Number(eachRow[i][j])
-            }
-        }
-    }
-    //console.log(eachRow);
-    
-}
-
-fenBoardInterrupt("rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR");
-console.log(boardPosition);
-
 function bishopMoves(piece, square) {
     possibleMoves = [];
     let currPos = coordToIndices.get(square);
+    let currCol = boardPosition[currPos[0]][currPos[1]][0];
+
+    let i = currPos[0];
+    let j = currPos[1];
+    i++; j++;
+    while ((i < 8) && (j < 8)) {
+        if (boardPosition[i][j][0] == "e") {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+        else if (boardPosition[i][j][0] != currCol) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            break;
+        }
+        else {
+            break;
+        }
+        i++; j++;
+    }
+
+    i = currPos[0] - 1;
+    j = currPos[1] - 1;
+    while ((i >= 0) && (j >= 0)) {
+        if (boardPosition[i][j][0] == "e") {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+        else if (boardPosition[i][j][0] != currCol) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            break;
+        }
+        else {
+            break;
+        }
+        i--; j--;
+    }
+
+    i = currPos[0] + 1;
+    j = currPos[1] - 1;
+    while ((i < 8) && (j >= 0)) {
+        if (boardPosition[i][j][0] == "e") {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+        else if (boardPosition[i][j][0] != currCol) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            break;
+        }
+        else {
+            break;
+        }
+        i++; j--;
+    }
+
+    i = currPos[0] - 1;
+    j = currPos[1] + 1;
+    while ((i >= 0) && (j < 8)) {
+        if (boardPosition[i][j][0] == "e") {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+        else if (boardPosition[i][j][0] != currCol) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            break;
+        }
+        else {
+            break;
+        }
+        i--; j++;
+    }
+
     return possibleMoves;
 }
 
 function kingMoves(piece, square) {
     possibleMoves = [];
     let currPos = coordToIndices.get(square);
+    let currCol = boardPosition[currPos[0]][currPos[1]][0];
+
+    let i = currPos[0] + 1;
+    let j = currPos[1] + 1;
+    if ((i < 8) && (j < 8)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] - 1;
+    j = currPos[1] - 1;
+    if ((i >= 0) && (j >= 0)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] + 1;
+    j = currPos[1] - 1;
+    if ((i < 8) && (j >= 0)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] - 1;
+    j = currPos[1] + 1;
+    if ((i >= 0) && (j < 8)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] - 1;
+    j = currPos[1];
+    if ((i >= 0)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] + 1;
+    j = currPos[1];
+    if ((i < 8)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0];
+    j = currPos[1] - 1;
+    if ((j >= 0)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0];
+    j = currPos[1] + 1;
+    if ((j < 8)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
     return possibleMoves;
 }
 
 function knightMoves(piece, square) {
     possibleMoves = [];
     let currPos = coordToIndices.get(square);
+    let currCol = boardPosition[currPos[0]][currPos[1]][0];
+
+    let i = currPos[0] + 2;
+    let j = currPos[1] + 1;
+    if ((i < 8) && (j < 8)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] - 2;
+    j = currPos[1] - 1;
+    if ((i >= 0) && (j >= 0)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] + 2;
+    j = currPos[1] - 1;
+    if ((i < 8) && (j >= 0)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] - 2;
+    j = currPos[1] + 1;
+    if ((i >= 0) && (j < 8)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] + 1;
+    j = currPos[1] - 2;
+    if ((i < 8) && (j >= 0)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] + 1;
+    j = currPos[1] + 2;
+    if ((i < 8) && (j < 8)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] - 1;
+    j = currPos[1] - 2;
+    if ((i >= 0) && (j >= 0)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
+    i = currPos[0] - 1;
+    j = currPos[1] + 2;
+    if ((i >= 0) && (j < 8)) {
+        if ((boardPosition[i][j][0] == "e") || (boardPosition[i][j][0] != currCol)) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+    }
+
     return possibleMoves;
 }
 
 function pawnMoves(piece, square) {
     possibleMoves = [];
     let currPos = coordToIndices.get(square);
+    let currCol = boardPosition[currPos[0]][currPos[1]][0];
+
+    let i = currPos[0];
+    let j = currPos[1] + 1;
+
+    if ((currCol == "w")) {
+        if (j < 8) {
+            if (boardPosition[i][j][0] == "e") {
+                possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            }
+        }
+
+        i = currPos[0] + 1;
+        j = currPos[1] + 1;
+        if ((j < 8) && (i < 8)) {
+            if ((boardPosition[i][j][0] != "e") && (boardPosition[i][j][0] != currCol)) {
+                possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            }
+        }
+
+        i = currPos[0] - 1;
+        j = currPos[1] + 1;
+        if ((j < 8) && (i >= 0)) {
+            if ((boardPosition[i][j][0] != "e") && (boardPosition[i][j][0] != currCol)) {
+                possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            }
+        }
+
+        i = currPos[0];
+        j = currPos[1];
+        if ((j == 1)){
+            if ((boardPosition[i][j+1][0] == "e") && (boardPosition[i][j+2][0] == "e")) {
+                possibleMoves.push(indicesToCoords.get(i.toString() + (j+2).toString()));
+            }  
+        }
+    }
+
+    else {
+        i = currPos[0];
+        j = currPos[1] - 1;
+        if (j >= 0) {
+            if (boardPosition[i][j][0] == "e") {
+                possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            }
+        }
+
+        i = currPos[0] + 1;
+        j = currPos[1] - 1;
+        if ((j >= 0) && (i < 8)) {
+            if ((boardPosition[i][j][0] != "e") && (boardPosition[i][j][0] != currCol)) {
+                possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            }
+        }
+
+        i = currPos[0] - 1;
+        j = currPos[1] - 1;
+        if ((j >= 0) && (i >= 0)) {
+            if ((boardPosition[i][j][0] != "e") && (boardPosition[i][j][0] != currCol)) {
+                possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            }
+        }
+
+        i = currPos[0];
+        j = currPos[1];
+        if ((j == 6)){
+            if ((boardPosition[i][j-1][0] == "e") && (boardPosition[i][j-2][0] == "e")) {
+                possibleMoves.push(indicesToCoords.get(i.toString() + (j-2).toString()));
+            }  
+        }
+    }
     return possibleMoves;
 }
 
 function queenMoves(piece, square) {
-    possibleMoves = [];
-    let currPos = coordToIndices.get(square);
-    return possibleMoves;
+    combinedMoves = [];
+    bishopMoves(piece, square).forEach((move) => {
+        console.log(move);
+        combinedMoves.push(move);
+    });
+    rookMoves(piece, square).forEach((move) => {
+        console.log(move);
+        combinedMoves.push(move);
+    });
+    
+    return combinedMoves;
 }
 
 function rookMoves(piece, square) {
     possibleMoves = [];
     let currPos = coordToIndices.get(square);
+    let currCol = boardPosition[currPos[0]][currPos[1]][0];
+
+    let i = currPos[0];
+    let j = currPos[1];
+    i++;
+    while (i < 8) {
+        if (boardPosition[i][j][0] == "e") {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+        else if (boardPosition[i][j][0] != currCol) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            break;
+        }
+        else {
+            break;
+        }
+        i++;
+    }
+
+    i = currPos[0]; j = currPos[1] + 1;
+    while (j < 8) {
+        if (boardPosition[i][j][0] == "e") {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+        else if (boardPosition[i][j][0] != currCol) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            break;
+        }
+        else {
+            break;
+        }
+        j++;
+    }
+
+    i = currPos[0] - 1; j = currPos[1];
+    while (i >= 0) {
+        if (boardPosition[i][j][0] == "e") {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+        else if (boardPosition[i][j][0] != currCol) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            break;
+        }
+        else {
+            break;
+        }
+        i--;
+    }
+
+    i = currPos[0]; j = currPos[1] - 1;
+    while (j >= 0) {
+        if (boardPosition[i][j][0] == "e") {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+        }
+        else if (boardPosition[i][j][0] != currCol) {
+            possibleMoves.push(indicesToCoords.get(i.toString() + j.toString()));
+            break;
+        }
+        else {
+            break;
+        }
+        j--;
+    }
+
     return possibleMoves;
 }
 
