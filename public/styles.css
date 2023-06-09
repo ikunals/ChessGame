@@ -1,0 +1,236 @@
+
+html {
+    box-sizing: border-box;
+  }
+
+body {
+    position: relative;
+    background-image: linear-gradient(180deg, #7486eb, #cde5ac);
+    display: flex;
+    justify-content: center;
+}
+
+.blink{
+    padding: 10px;
+    border-radius: 10px;
+    animation: blink 0.5s infinite;
+    color: rgb(215, 42, 42);
+    }
+    @keyframes blink{
+        0% {
+            background: rgb(215, 42, 42);
+            color: rgb(29, 244, 208);
+        }
+        50% {
+            background: rgb(29, 244, 208);
+            color: rgb(215, 42, 42);;
+        }
+}
+
+.createGameLabel {
+    margin-top: 40px;
+    padding: 10px;
+    font: 15px;
+    border-radius: 10px;
+    background: rgb(103, 84, 225);
+    width: 250px;
+    color: white;
+}
+
+.joinGameLabel {
+    padding: 10px;
+    font: 15px;
+    border-radius: 10px;
+    background: rgb(103, 84, 225);
+    width: 200px;
+    color: white;
+}
+
+#roomSetup {
+    border-radius: 50px;
+    padding-top: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 60px;
+    border-style: solid;
+    background-image: linear-gradient(180deg, #fadfbb, #dfac47);
+}
+
+.roomButton {
+    background: rgb(103, 84, 225);
+    border-radius: 10px;
+    width: 60px;
+    color: white;
+}
+
+.inputLabel {
+    background: rgb(103, 84, 225);
+    border-radius: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 110px;
+    color: white;
+}
+
+.sliderLabel {
+    background: rgb(103, 84, 225);
+    border-radius: 15px;
+    width: 350px;
+    padding: 10px;
+    color: white;
+}
+
+.input-box {
+    background-color: rgb(255, 179, 0);
+    margin-left: 10px;
+    border-radius: 10px;
+    color:white;
+}
+
+#roombanner {
+    position: absolute;
+    border-radius: 25px;
+    margin-top: 25px;
+    background-image: linear-gradient(180deg, #eb748e, #dfbb6f);
+    border-style: solid;
+    padding: 5px;
+    border-width: 4px;
+}
+
+#createGame {
+    border-radius: 30px;
+    padding: 30px;
+    background-color: rgb(163, 57, 8);
+    color: white;
+    padding-top: 15px;
+    padding-left: 30px;
+}
+
+#joinGame {
+    border-radius: 30px;
+    padding: 30px;
+    background-color: rgb(163, 57, 8);
+    color: white;
+    padding-top: 30px;
+    padding-left: 30px;
+}
+
+.slider {
+    margin-top: 20px;
+    background-color: white;
+    width: 400px;
+}
+
+#whotoplay {
+    position: absolute;
+    border-radius: 25px;
+    margin-top: 90px;
+    padding: 5px;
+    background-color: orange;
+    border-style: solid;
+    border-width: 4px;
+}
+
+.container {
+    margin-top: 150px;
+}
+
+#restartButton {
+    margin-top: 300px;
+    margin-left: 20px;
+    font-size: 50px;
+    border-radius: 12px;
+    background-color: aquamarine;
+}
+
+#wTimerContainer{
+    display: block;
+}
+
+.chessboard{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.chessboard > * {
+    border-style: solid;
+    border-width: 1px;
+    width: 50px;
+    opacity: 100%;
+    height: 50px;
+}
+
+#whitetimer {
+    font-size: 45px;
+    padding: 3px;
+    border-radius: 25px;
+    margin-right: 20px;
+    margin-top: 150px;
+    border-style: solid;
+    border-width: 4px;
+    background-color: #babcb4;
+}
+
+#blacktimer {
+    font-size: 45px;
+    padding: 3px;
+    border-radius: 25px;
+    margin-right: 20px;
+    margin-top: 285px;
+    border-style: solid;
+    border-width: 4px;
+    background-color: #babcb4;
+}
+
+div.b_bishop {
+    content:url("./pieces/b_bishop.svg");
+}
+
+div.b_king {
+    content:url("./pieces/b_king.svg");
+}
+
+div.b_knight {
+    content:url("./pieces/b_knight.svg");
+}
+
+div.b_pawn {
+    content:url("./pieces/b_pawn.svg");
+}
+
+div.b_queen {
+    content:url("./pieces/b_queen.svg");
+}
+
+div.b_rook {
+    content:url("./pieces/b_rook.svg");
+}
+
+div.w_bishop {
+    content:url("./pieces/w_bishop.svg");
+}
+
+div.w_king {
+    content:url("./pieces/w_king.svg");
+}
+
+div.w_knight {
+    content:url("./pieces/w_knight.svg");
+}
+
+div.w_pawn {
+    content:url("./pieces/w_pawn.svg");
+}
+
+div.w_queen {
+    content:url("./pieces/w_queen.svg");
+}
+
+div.w_rook {
+    content:url("./pieces/w_rook.svg");
+}
