@@ -8,7 +8,6 @@ const io = require('socket.io')(server);
 const PORT = process.env.PORT || 8080;
 
 server.listen(PORT);
-app.listen(PORT);
 
 app.get("/", (req, res) => {
     res.sendFile("/views/index.html", {root: __dirname});
