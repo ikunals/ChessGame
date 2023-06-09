@@ -1,18 +1,13 @@
 
 
 const express = require('express');
-const { instrument } = require('@socket.io/admin-ui');
-const io = require('socket.io')(3000, {
-    cors: {
-        origin: ["http://localhost:8080", "https://admin.socket.io"],
-    }
-});
-
-instrument(io, { auth: false });
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 const app = express();
+const PORT = process.env.PORT || 8080;
 
-app.listen(8080);
+app.listen(PORT);
 
 app.get("/", (req, res) => {
     res.sendFile("/views/index.html", {root: __dirname});
