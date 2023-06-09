@@ -16,6 +16,7 @@ setInterval(() => {
                 document.getElementById("whotoplay").innerHTML = "Black Wins By Time";
                 document.getElementById("roombanner").innerHTML = `Room ${roomName}: Game Finished`;
                 document.getElementById("whitetimer").innerHTML = "00:00";
+                checkmateSequence();
             }
             else {
                 document.getElementById("whitetimer").innerHTML = minutes + ":" + seconds;
