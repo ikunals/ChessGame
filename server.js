@@ -32,10 +32,12 @@ io.on('connection', (socket) => {
         socket.to(room).emit("setTimeControl", timeControl);
     });
 
+    // for move comms
     socket.on('playerMove', (oldCoords, newCoords, room) => {
         socket.to(room).emit("posChange", oldCoords, newCoords);
     }); 
 
+    //easier way of changing colors
     socket.on('turnChangeServer', (room, color) => {
         socket.to(room).emit("turnChangeClient", color);
     });

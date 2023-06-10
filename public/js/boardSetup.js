@@ -1,3 +1,4 @@
+// the actual square elements are created in html here
 function createSquares() {
     letters = "abcdefgh"
     // diff player colors means diff numbers
@@ -49,6 +50,7 @@ function createSquares() {
     }    
 }
 
+// each square is assigned its piece in the starting position
 function setPieces() {
     let piece_list = ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook'];
     let letters = "abcdefgh"
@@ -95,6 +97,8 @@ function setPieces() {
     document.body.appendChild(styleSheet);
 }
 
+// the timers need to be put in the correct position
+// also a bit convoluted how i do it, will fix later
 function createTimers() {
     if (playerColor == "white") {
         document.getElementById("toptimer").id = "blacktimer";
@@ -112,6 +116,7 @@ function resetGame() {
     window.location.reload();
 }
 
+// makes a big button when its game over
 function checkmateSequence() { 
     let newButton = document.createElement("button");
     newButton.type = "button";

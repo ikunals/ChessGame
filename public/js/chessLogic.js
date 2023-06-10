@@ -1,7 +1,7 @@
 
 const coordToIndices = new Map();
 const indicesToCoords = new Map();
-
+//hash maps for easy of converting between indices and alphanumeric coordinates
 function setMaps() {
     let letters = "abcdefgh";
     for (let i = 0; i < letters.length; i++) {
@@ -17,6 +17,9 @@ function setMaps() {
 
 } setMaps();
 
+
+// the rest is pretty self explanatory, its just the possible moves a certain piece can make 
+// given its position and the board composition at the moment
 function bishopMoves(piece, square) {
     possibleMoves = [];
     let currPos = coordToIndices.get(square);

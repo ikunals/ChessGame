@@ -1,6 +1,6 @@
 
 const socket = io.connect();
-//----------
+
 let boardPosition = [];
 
 let initGame = false;
@@ -17,7 +17,7 @@ let oldNow = new Date().getTime();
 let timeEnd = 0;
 let timeSinceRefresh = 0;
 
-// START SEQUENCE
+// START SEQUENCE, these elements will pop up later
 document.getElementById("whotoplay").style.display = "none";
 document.getElementById("roombanner").style.display = "none";
 document.getElementById("wTimerContainer").style.display = "none";
@@ -33,7 +33,7 @@ socket.on("serverHandshake", (signal) => {
     document.getElementById("whotoplay").innerHTML = "White to Play";
 });
 
-//player 2 is ready by this point
+//player 2 is ready by this point, it updates time control
 socket.on("setTimeControl", (timeSent) => {
     timeControl = timeSent;
     timeEnd = oldNow + (timeControl * 60 * 1000);
@@ -43,16 +43,19 @@ socket.on("setTimeControl", (timeSent) => {
     document.getElementById("whotoplay").innerHTML = "White to Play";
 });
 
+// which pieces were moved
 socket.on("posChange", (oldPos, newPos) => {
     if (makeMove(oldPos, newPos)) {
         socket.emit("turnChangeServer", roomName, whoToPlay);
     }
 });
 
+// simple way I found to switch colors so piece clicking becomes enabled
 socket.on("turnChangeClient", (receivedColor) => {
     whoToPlay = receivedColor;
 });
 
+// sequence that runs after "go" button is clicked
 function startGame() {
     if (document.getElementById("jRname").value == "") {
         timeControl = Number(document.getElementById("timeSlider").value);
@@ -71,6 +74,7 @@ function startGame() {
     addSquareLogic();
 }
 
+//calls more internal functions to write board to screen
 function setupBoard() {
     initRooms = true;
     document.getElementById("roomSetup").remove();
@@ -88,12 +92,14 @@ function setupBoard() {
     initGame = true;
 }
 
+// adds functionality to each square
 function addSquareLogic() {
     let squares = document.getElementsByClassName("square");
     let oldSq = "";
     let coloredSquares = [];
     Array.from(squares).forEach((element) => {
         element.onmousedown = function(event) {
+            // the if statement is for the piece selected
             if (selectOn && !gameEnded && (playerColor[0] == whoToPlay) && handshakeFin) {
                 let target = event.target;
                 let chosenCol = target.classList[2][0];
@@ -103,6 +109,7 @@ function addSquareLogic() {
                     selectOn = false;
                     coloredSquares = [];
                     let possibleMoves = parseMoves(target.classList[2], target.id);
+                    // the squares the selected piece can go to is highlighted purple, while the selected square itself is highlighted yellow
                     possibleMoves.forEach((move) => {
                         let moveSq = document.getElementById(move);
                         moveSq.style.backgroundColor = "purple";
@@ -110,9 +117,11 @@ function addSquareLogic() {
                     });
                 }
             }
+            // this else statement is for the square that the selected piece goes to 
             else if (!gameEnded && (playerColor[0] == whoToPlay) && handshakeFin) {
                 let target = event.target;
 
+                //colors changed back
                 coloredSquares.forEach((eachSq) => {
                     let sqTarget = document.getElementById(eachSq);
                     sqTarget.style.backgroundColor = sqTarget.classList[1];
@@ -128,6 +137,8 @@ function addSquareLogic() {
     });
 }
 
+// takes two squares, changes their contents on chessboard
+// a bit convoluted, will make more efficient later
 function makeMove(oldTarget, newTarget) {
     oldTarget = document.getElementById(oldTarget);
     newTarget = document.getElementById(newTarget);
@@ -189,6 +200,9 @@ function makeMove(oldTarget, newTarget) {
     }
 }
 
+// important function here,
+// when player 1 is waiting for player 2, the clock is technically running
+// this provides the offset so the timing is correct
 setInterval(() => {
     if (!handshakeFin)
         timeSinceRefresh += 1000;
