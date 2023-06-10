@@ -18,15 +18,17 @@ app.use('/js', express.static('public/js', {root: __dirname}));
 
 io.on('connection', (socket) => {
 
-    socket.on('roomkey', (room, timeControl) => {
+    socket.on('roomkey', (room) => {
         socket.join(room);
     }); 
 
-    socket.on('handshake', (room) => {
+    // second player sends this, which then we send to first player that its go time
+    socket.on('initHandshake', (room) => {
         socket.to(room).emit("serverHandshake", true);
     }); 
 
-    socket.on('received', (room, timeControl) => {
+    // first player after receiving confirmation then sends the time control to use
+    socket.on('receivedHandshake', (room, timeControl) => {
         socket.to(room).emit("setTimeControl", timeControl);
     });
 
