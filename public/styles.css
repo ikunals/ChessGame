@@ -1,30 +1,36 @@
-
 html {
     box-sizing: border-box;
-  }
+}
 
 body {
     position: relative;
-    background-image: linear-gradient(180deg, #7486eb, #cde5ac);
+    /* background-image: linear-gradient(180deg, #7486eb, #cde5ac); */
+    display: flex;
+    background: url('./images/back.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
     display: flex;
     justify-content: center;
 }
 
-.blink{
+.blink {
     padding: 10px;
     border-radius: 10px;
     animation: blink 0.5s infinite;
     color: rgb(215, 42, 42);
+}
+
+@keyframes blink {
+    0% {
+        background: rgb(215, 42, 42);
+        color: rgb(29, 244, 208);
     }
-    @keyframes blink{
-        0% {
-            background: rgb(215, 42, 42);
-            color: rgb(29, 244, 208);
-        }
-        50% {
-            background: rgb(29, 244, 208);
-            color: rgb(215, 42, 42);;
-        }
+
+    50% {
+        background: rgb(29, 244, 208);
+        color: rgb(215, 42, 42);
+        ;
+    }
 }
 
 .createGameLabel {
@@ -32,18 +38,20 @@ body {
     padding: 10px;
     font: 15px;
     border-radius: 10px;
-    background: rgb(103, 84, 225);
+    background: linear-gradient(to bottom, #acb7ae, #82716e, #e4decd);
+    color: black;
     width: 250px;
-    color: white;
+
 }
 
 .joinGameLabel {
     padding: 10px;
     font: 15px;
     border-radius: 10px;
-    background: rgb(103, 84, 225);
+    background: linear-gradient(to bottom, #acb7ae, #82716e, #e4decd);
+    color: black;
     width: 200px;
-    color: white;
+
 }
 
 #roomSetup {
@@ -52,8 +60,12 @@ body {
     padding-left: 50px;
     padding-right: 50px;
     padding-bottom: 60px;
-    border-style: solid;
-    background-image: linear-gradient(180deg, #fadfbb, #dfac47);
+    /* /* border-style: solid; */
+    border: 2px solid white;
+    border-width: 5px 3px 3px 5px;
+    border-radius: 95% 4% 97% 5%/4% 94% 3% 95%;
+    /* transform: rotate(1deg); */
+    /* background-image: linear-gradient(180deg, #fadfbb, #dfac47); */
 }
 
 .roomButton {
@@ -83,17 +95,19 @@ body {
 }
 
 .input-box {
-    background-color: rgb(255, 179, 0);
+    /* background-color: rgb(255, 179, 0); */
     margin-left: 10px;
     border-radius: 10px;
-    color:white;
+    color: white;
 }
 
 #roombanner {
     position: absolute;
     border-radius: 25px;
     margin-top: 25px;
-    background-image: linear-gradient(180deg, #eb748e, #dfbb6f);
+    /* background-image: linear-gradient(180deg, #eb748e, #dfbb6f); */
+    background: linear-gradient(to bottom, #acb7ae, #82716e, #e4decd);
+    color: black;
     border-style: solid;
     padding: 5px;
     border-width: 4px;
@@ -102,7 +116,10 @@ body {
 #createGame {
     border-radius: 30px;
     padding: 30px;
-    background-color: rgb(163, 57, 8);
+    /* background-color: rgb(163, 57, 8); */
+    border: 2px solid white;
+    border-width: 5px 3px 3px 5px;
+    border-radius: 95% 4% 97% 5%/4% 94% 3% 95%;
     color: white;
     padding-top: 15px;
     padding-left: 30px;
@@ -111,7 +128,10 @@ body {
 #joinGame {
     border-radius: 30px;
     padding: 30px;
-    background-color: rgb(163, 57, 8);
+    border: 2px solid white;
+    border-width: 5px 3px 3px 5px;
+    border-radius: 95% 4% 97% 5%/4% 94% 3% 95%;
+    /* background-color: rgb(163, 57, 8); */
     color: white;
     padding-top: 30px;
     padding-left: 30px;
@@ -122,6 +142,7 @@ body {
     background-color: white;
     width: 400px;
 }
+
 
 #whotoplay {
     position: absolute;
@@ -145,24 +166,30 @@ body {
     background-color: aquamarine;
 }
 
-#wTimerContainer{
+#wTimerContainer {
     display: block;
 }
 
-.chessboard{
+.chessboard {
     margin-left: auto;
+    border: 2px solid white;
     margin-right: auto;
     margin-top: 0px;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
+    background: white;
+    border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
+    color: white;
+    box-shadow: 20px 20px rgba(0, 0, 0, 1);
+    transition: all .4s ease;
 }
 
-.chessboard > * {
+.chessboard>* {
     border-style: solid;
     border-width: 1px;
-    width: 50px;
+    width: 3.5em;
     opacity: 100%;
-    height: 50px;
+    height: 3.5em;
 }
 
 #whitetimer {
@@ -188,49 +215,49 @@ body {
 }
 
 div.b_bishop {
-    content:url("./pieces/b_bishop.svg");
+    content: url("./pieces/b_bishop.svg");
 }
 
 div.b_king {
-    content:url("./pieces/b_king.svg");
+    content: url("./pieces/b_king.svg");
 }
 
 div.b_knight {
-    content:url("./pieces/b_knight.svg");
+    content: url("./pieces/b_knight.svg");
 }
 
 div.b_pawn {
-    content:url("./pieces/b_pawn.svg");
+    content: url("./pieces/b_pawn.svg");
 }
 
 div.b_queen {
-    content:url("./pieces/b_queen.svg");
+    content: url("./pieces/b_queen.svg");
 }
 
 div.b_rook {
-    content:url("./pieces/b_rook.svg");
+    content: url("./pieces/b_rook.svg");
 }
 
 div.w_bishop {
-    content:url("./pieces/w_bishop.svg");
+    content: url("./pieces/w_bishop.svg");
 }
 
 div.w_king {
-    content:url("./pieces/w_king.svg");
+    content: url("./pieces/w_king.svg");
 }
 
 div.w_knight {
-    content:url("./pieces/w_knight.svg");
+    content: url("./pieces/w_knight.svg");
 }
 
 div.w_pawn {
-    content:url("./pieces/w_pawn.svg");
+    content: url("./pieces/w_pawn.svg");
 }
 
 div.w_queen {
-    content:url("./pieces/w_queen.svg");
+    content: url("./pieces/w_queen.svg");
 }
 
 div.w_rook {
-    content:url("./pieces/w_rook.svg");
+    content: url("./pieces/w_rook.svg");
 }
